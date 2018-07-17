@@ -1,0 +1,87 @@
+Class	Family	Color	OldColors
+p__Actinobacteria;c__Actinobacteria	f__Bifidobacteriaceae	#408000	#ec2224
+p__Actinobacteria;c__Actinobacteria	f__Actinomycetaceae	#138808	
+p__Actinobacteria;c__Actinobacteria	f__Corynebacteriaceae	#30b34a	#ee4344
+p__Actinobacteria;c__Actinobacteria	f__Dermabacteraceae	#347C17	
+p__Actinobacteria;c__Actinobacteria	f__Micrococcaceae	#a5d68f	#f6a1a1
+p__Actinobacteria;c__Actinobacteria	f__Coriobacteriaceae	#dbeed2	#dbeed2
+p__Actinobacteria;c__Actinobacteria	f__Nocardiaceae	#e9f4e4	#e9f4e4
+p__Actinobacteria;c__Actinobacteria	f__Microbacteriaceae	#bac3b6	#bac3b6
+p__Actinobacteria;c__Actinobacteria	f__Promicromonosporaceae	#99c693	
+p__Actinobacteria;c__Actinobacteria	f__Mycobacteriaceae	#e3fc97	
+p__Bacteroidetes;c__Bacteroidia	f__Bacteroidaceae	#b25d00	#f5ea14
+p__Bacteroidetes;c__Bacteroidia	f__Porphyromonadaceae	#ff8500	#fbf6a1
+p__Bacteroidetes;c__Bacteroidia	f__Prevotellaceae	#ffa500	#faf3a2
+p__Bacteroidetes;c__Bacteroidia	f__Paraprevotellaceae	#ffd27f	#ffd27f
+p__Bacteroidetes;c__Bacteroidia	f__Weeksellaceae	#ffedcc	#ffedcc
+p__Bacteroidetes;c__Bacteroidia	f__Rikenellaceae	#fff6e5	#fff6e5
+p__Bacteroidetes;c__Flavobacteriia	f__Flavobacteriaceae	#ffce99	#ffce99
+p__Bacteroidetes;c__[Saprospirae]	f__Chitinophagaceae	#faf287	#faf287
+p__Bacteroidetes;c__	f__	#fdfad0	#fdfad0
+p__Bacteroidetes;c__	Bacteroidetes_unclassified	#fdfad0	#fdfad0
+p__Firmicutes;c__Bacilli	f__Lactobacillaceae	#3a53a3	#408000
+p__Firmicutes;c__Bacilli	f__Streptococcaceae	#7980bb	#30b34a
+p__Firmicutes;c__Bacilli	f__Staphylococcaceae	#c1bedf	#69bc45
+p__Firmicutes;c__Bacilli	f__Gemellaceae	#6898d0	#b4dda2
+p__Firmicutes;c__Bacilli	f__Carnobacteriaceae	#a4c1e2	#a4c1e2
+p__Firmicutes;c__Bacilli	f__Alicyclobacillaceae	#d1e0f0	#d1e0f0
+p__Firmicutes;c__Bacilli	f__Enterococcaceae	#e3ecf6	#e3ecf6
+p__Firmicutes;c__Bacilli	f__Bacillaceae	#b5bcc4	#b5bcc4
+p__Firmicutes;c__Bacilli	f__Paenibacillaceae	#7e8389	#7e8389
+p__Firmicutes;c__Bacilli	f__Turicibacteraceae	#2B3856	
+p__Firmicutes;c__Clostridia	f__Lachnospiraceae	#2a7777	#3a53a3
+p__Firmicutes;c__Clostridia	f__Ruminococcaceae	#4cd6d6	#5861ab
+p__Firmicutes;c__Clostridia	f__Veillonellaceae	#88f3f3	#c1bedf
+p__Firmicutes;c__Clostridia	f__Clostridiaceae	#ccf9f9	#6898d0
+p__Firmicutes;c__Clostridia	f__Clostridiaceae_1	#ccf9f9	#6898d0
+p__Firmicutes;c__Clostridia	f__Tissierellaceae	#95bce3	#95bce3
+p__Firmicutes;c__Clostridia	f__Symbiobacteriaceae	#bfd6ee	#caddf1
+p__Firmicutes;c__Clostridia	f__Eubacteriaceae	#eff4fa	#eff4fa
+p__Firmicutes;c__Clostridia	f__Oscillospiraceae	#68839e	#68839e
+p__Firmicutes;c__Clostridia	f__Peptostreptococcaceae	#4a5e71	#4a5e71
+p__Firmicutes;c__Clostridia	f__Peptoniphilaceae	#6a849d	#6a849d
+p__Firmicutes;c__Clostridia	f__Mogibacteriaceae	#929ea9	
+p__Firmicutes;c__Clostridia	Clostridiales_unclassified	#bfd6d6	
+p__Firmicutes;c__Clostridia	f__Family_XI	#bfd6d6	
+p__Firmicutes;c__Clostridia	f__Family_XIII	#8eaeae	
+p__Firmicutes;c__Clostridia	f__Clostridiales_Incertae_Sedis_XI	#c6d6d6	
+p__Firmicutes;c__Negativicutes	f__Acidaminococcaceae	#86a9cc	#86a9cc
+p__Firmicutes;c__Erysipelotrichi	f__Erysipelotrichaceae	#dfeaf6	#dfeaf6
+p__Fusobacteria;c__Fusobacteriia	f__Fusobacteriaceae	#f5ea14	#ff8197
+p__Fusobacteria;c__Fusobacteriia	f__Leptotrichiaceae	#fbf6a1	#ffd5dc
+p__Proteobacteria;c__Gammaproteobacteria	f__Enterobacteriaceae	#a51719	#742b8f
+p__Proteobacteria;c__Gammaproteobacteria	f__Pseudomonadaceae	#ee2224	#8b4b9c
+p__Proteobacteria;c__Gammaproteobacteria	f__Moraxellaceae	#f37a7b	#9b5fa6
+p__Proteobacteria;c__Gammaproteobacteria	f__Pasteurellaceae	#f9bcbd	#f9bcbd
+p__Proteobacteria;c__Gammaproteobacteria	f__Xanthomonadaceae	#fbd6d7	#fbd6d7
+p__Proteobacteria;c__Gammaproteobacteria	f__Aeromonadaceae	#fdeeef	#fdeeef
+p__Proteobacteria;c__Gammaproteobacteria	f__Succinivibrionaceae	#F36465	#F36465
+p__Proteobacteria;c__Alphaproteobacteria	f__Rhodobacteraceae	#F433FF	#725673
+p__Proteobacteria;c__Alphaproteobacteria	f__Erythrobacteraceae	#D16587	
+p__Proteobacteria;c__Alphaproteobacteria	f__Bradyrhizobiaceae	#C25A7C	#d676a7
+p__Proteobacteria;c__Alphaproteobacteria	f__Sphingomonadaceae	#CA226B	#955274
+p__Proteobacteria;c__Alphaproteobacteria	f__Methylobacteriaceae	#C12869	#6b3b53
+p__Proteobacteria;c__Alphaproteobacteria	f__Rhizobiaceae	#C12267	
+p__Proteobacteria;c__Alphaproteobacteria	f__Phyllobacteriaceae	#C25283	
+p__Proteobacteria;c__Alphaproteobacteria	f__Rhodospirillaceae	#C12283	
+p__Proteobacteria;c__Alphaproteobacteria	f__Caulobacteraceae	#B93B8F	#a68997
+p__Proteobacteria;c__Alphaproteobacteria	f__Acetobacteraceae	#dc9dc7	
+p__Proteobacteria;c__Betaproteobacteria	f__Alcaligenaceae	#6A287E	#804664
+p__Proteobacteria;c__Betaproteobacteria	f__Oxalobacteraceae	#7D1B7E	#bf90c0
+p__Proteobacteria;c__Betaproteobacteria	f__Neisseriaceae	#A74AC7	#d8bcd9
+p__Proteobacteria;c__Betaproteobacteria	f__Sutterellaceae	#B048B5	#f6e3ed
+p__Proteobacteria;c__Betaproteobacteria	f__Comamonadaceae	#6C2DC7	#ac9ea5
+p__Proteobacteria;c__Betaproteobacteria	f__Methylophilaceae	#842DCE	
+p__Proteobacteria;c__Betaproteobacteria	f__Burkholderiaceae	#C45AEC	
+p__Proteobacteria;c__Betaproteobacteria	f__Rhodocyclaceae	#8D38C9	
+p__Proteobacteria;c__Epsilonproteobacteria	f__Campylobacteraceae	#D462FF	#faf1f6
+p__Proteobacteria;c__Epsilonproteobacteria	f__Helicobacteraceae	#E238EC	
+p__Proteobacteria;c__Deltaproteobacteria	f__Desulfovibrionaceae	#E6A9EC	#c8c0c4
+p__Proteobacteria;c__Deltaproteobacteria	f__0319-6G20	#E0B0FF	#8c8689
+p__Tenericutes;c__Mollicutes	f__Mycoplasmataceae	#d2b394	#ffa500
+p__Verrucomicrobia;c__Verrucomicrobiae	f__Verrucomicrobiaceae	#73481d	#f2b67b
+p__[Thermi];c__Deinococci	f__Thermaceae	#8b4b9c	#eeeeee
+Other	Other	#b2b2b2	#808080
+p__Euryarchaeota;c__Methanobacteria	f__Methanobacteriaceae	#ff66cc	#ff66cc
+p__Viruses;c__Viruses	f__Siphoviridae	#0000ff	#0000ff
+p__Plantae;c__unplaced	f__Streptophyta	#222222	

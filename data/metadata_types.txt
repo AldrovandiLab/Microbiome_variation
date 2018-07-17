@@ -1,0 +1,9 @@
+metadata_variable	type	baseline	useForPERMANOVA	useForLCA	useForNB
+SampleType	factor		yes		
+SampleType2	factor		no		
+DilutionFactor	factor	1	yes		
+ExtractionBatch	factor		yes		
+PCRBatch	factor		yes		
+QubitTubeConcentrationNgPerMl	numeric				
+RunDateString	date		yes		
+qPCRCopiesPerUl	numeric				
