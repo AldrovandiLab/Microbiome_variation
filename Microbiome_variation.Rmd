@@ -1,7 +1,7 @@
 ---
 title: "Quantifying biological and technical variation in amplicon-based microbiome studies"
 author: Fan Li
-date: October 18, 2017
+date: July 17, 2018
 output:
   html_document:
     keep_md: true
