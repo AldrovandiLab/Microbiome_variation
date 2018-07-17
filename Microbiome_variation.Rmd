@@ -164,7 +164,7 @@ negids <- rownames(subset(mapping, SampleType %in% c("Blank", "PCRBlank")))
 rs <- rowSums(otu_table[,negids])
 rs.true <- rowSums(otu_table(ps)[, setdiff(sample_names(ps), negids)])
 pct_blank <- 100* (rs / (rs + rs.true))
-hist(pct_blank, breaks=40)
+hist(pct_blank, breaks=100)
 ```
 
 <br><br>
@@ -274,23 +274,20 @@ Both the PCoA and PERMANOVA confirm what we already know, namely that the bacter
 ```{r biological_variation_distances, eval=TRUE, warning=FALSE, message=FALSE, fig.cap="Pairwise distances for 'Stool-Within', 'Stool-Between', and 'Mock-Within' sample pairs. All pairs are stratified by sequencing run."}
 mapping.sel <- as(sample_data(psnonblank.relative), "data.frame")
 mapping.sel$SampleID <- rownames(mapping.sel)
-pairs <- ddply(mapping.sel, .(SampleType, RunDateString), function(x) {
+pairs <- ddply(mapping.sel, .(SampleType), function(x) {
 	t(combn(x$SampleID, 2))
-}); colnames(pairs) <- c("SampleType", "RunDateString", "s1", "s2"); pairs$s1 <- as.character(pairs$s1); pairs$s2 <- as.character(pairs$s2)
-pairs$st1 <- mapping.sel[pairs$s1, "SampleType2"]; pairs$st2 <- mapping.sel[pairs$s2, "SampleType2"]
-pairs$Group <- factor(ifelse(pairs$st1 == "BacterialMock", "Mock-Within", ifelse(pairs$st1==pairs$st2, "Stool-Within", "Stool-Between")))
+}); colnames(pairs) <- c("SampleType", "s1", "s2"); pairs$s1 <- as.character(pairs$s1); pairs$s2 <- as.character(pairs$s2)
+pairs$WithinRun <- ifelse(mapping.sel[pairs$s1, "RunDateString"]==mapping.sel[pairs$s2, "RunDateString"], "WithinRun", "BetweenRun")
+pairs$Group <- factor(paste(pairs$SampleType, pairs$WithinRun, sep="-"))
 for (distance_metric in distance_metrics) {
 	pairs[, distance_metric] <- dm[["nonblank"]][[distance_metric]][cbind(pairs$s1, pairs$s2)]
 	test <- kruskal.test(as.formula(sprintf("%s ~ %s", distance_metric, "Group")), pairs)
-	test.1 <- wilcox.test(as.formula(sprintf("%s ~ %s", distance_metric, "Group")), subset(pairs, Group %in% c("Mock-Within", "Stool-Within")))
-	test.2 <- wilcox.test(as.formula(sprintf("%s ~ %s", distance_metric, "Group")), subset(pairs, Group %in% c("Stool-Between", "Stool-Within")))
-	df.annot <- aggregate(as.formula(sprintf("%s ~ %s", distance_metric, "Group")), pairs, mean)
-	p <- ggplot(pairs, aes_string(x="Group", y=distance_metric)) + geom_boxplot() + theme_classic() + ggtitle(sprintf("%s by %s (%s p=%.4g)", distance_metric, "SampleType2", test$method, test$p.value)) + theme(title=element_text(size=8)) + annotate("text", x=2, y=0.1, label=sprintf("Mock-Within vs Stool-Within wilcoxon p=%.4g", test.1$p.value), size=4) + annotate("text", x=2, y=0.05, label=sprintf("Stool-Between vs Stool-Within wilcoxon p=%.4g", test.2$p.value), size=4) + geom_text(aes_string(x="Group", y=distance_metric, label=distance_metric), data=df.annot, inherit.aes=F)
+	p <- ggplot(pairs, aes_string(x="Group", y=distance_metric)) + geom_boxplot() + theme_classic() + ggtitle(sprintf("%s by %s (%s p=%.4g)", distance_metric, "Group", test$method, test$p.value)) + theme(title=element_text(size=8))
 	print(p)
 }
 ```
 <br><br>
-Unsurprisingly, the 'Stool-Between' distances are significantly greater than the 'Stool-Within' distances; in other words, technical replicates of the same stool specimen are more closely related than biological replicates from the same donor. Interestingly, 'Mock-Within' distances are even smaller than the 'Stool-Within' distances, suggesting that technical variation likely depends on complexity of the community being studied (assumption here is that a real stool community is far more complex than our bacterial mock community).
+Unsurprisingly, the 'Stool-BetweenRun' distances are significantly greater than the 'Stool-WithinRun' distances; in other words, technical replicates of the same stool specimen are more closely related than biological replicates from the same donor. Interestingly, 'BacterialMock-WithinRun' distances are even smaller than the 'Stool-WithinRun' distances, suggesting that technical variation likely depends on complexity of the community being studied (assumption here is that a real stool community is far more complex than our bacterial mock community).
 
 
 ***
@@ -341,13 +338,18 @@ pairs <- ddply(mapping.sel, .(SampleType), function(x) {
 	t(combn(x$SampleID, 2))
 }); colnames(pairs) <- c("SampleType", "s1", "s2"); pairs$s1 <- as.character(pairs$s1); pairs$s2 <- as.character(pairs$s2)
 pairs$WithinRun <- ifelse(mapping.sel[pairs$s1, "RunDateString"]==mapping.sel[pairs$s2, "RunDateString"], "WithinRun", "BetweenRun")
-pairs <- subset(pairs, WithinRun=="WithinRun")
+pairs$Group <- factor(paste(pairs$SampleType, pairs$WithinRun, sep="-"))
 pairs$Run <- mapping.sel[pairs$s1, "RunDateString"]
-pairs <- subset(pairs, SampleType=="BacterialMock")
 for (distance_metric in distance_metrics) {
 	pairs[, distance_metric] <- dm[["nonblank"]][[distance_metric]][cbind(pairs$s1, pairs$s2)]
-	test.mock <- kruskal.test(as.formula(sprintf("%s ~ %s", distance_metric, "Run")), pairs)
-	p <- ggplot(pairs, aes_string(x="Run", y=distance_metric, fill="SampleType")) + geom_boxplot() + theme_classic() + ggtitle(sprintf("%s by %s (%s %.4g for BacterialMock, mean=%.4g)", distance_metric, "Run", test.mock$method, test.mock$p.value, mean(pairs[, distance_metric]))) + theme(title=element_text(size=8)) + scale_fill_brewer(palette="Set1")
+}
+pairs.within <- subset(pairs, WithinRun=="WithinRun")
+pairs.within.mock <- subset(pairs.within, SampleType=="BacterialMock")
+pairs.mock <- subset(pairs, SampleType=="BacterialMock"); levels(pairs.mock$Run) <- c(levels(pairs.mock$Run), "Inter"); pairs.mock$Run[which(pairs.mock$WithinRun!="WithinRun")] <- "Inter"
+for (distance_metric in distance_metrics) {
+	test.stool <- kruskal.test(as.formula(sprintf("%s ~ %s", distance_metric, "Run")), subset(pairs.within, SampleType=="Stool"))
+	test.mock <- kruskal.test(as.formula(sprintf("%s ~ %s", distance_metric, "Run")), subset(pairs.within, SampleType=="BacterialMock"))
+	p <- ggplot(pairs.mock, aes_string(x="Run", y=distance_metric, fill="SampleType")) + geom_boxplot() + theme_classic() + ggtitle(sprintf("%s by %s (%s %.4g for BacterialMock, mean=%.4g)", distance_metric, "Run", test.mock$method, test.mock$p.value, mean(pairs.within.mock[, distance_metric]))) + theme(title=element_text(size=8)) + scale_fill_brewer(palette="Set1")
 	print(p)
 }
 ```
@@ -372,11 +374,12 @@ for (taxlevel in c("Family", "Genus", "Species", "SV")) {
 		icc(tmp)$value
 	})), RunDateString=factor(levels(mapping.sel$RunDateString), levels=levels(mapping.sel$RunDateString)), taxlevel=taxlevel)
 	res <- rbind(res, df)
+	# ICC across all runs
+	df <- data.frame(ICC=icc(agg)$value, RunDateString="all", taxlevel=taxlevel)
+	res <- rbind(res, df)
 }
 p <- ggplot(res, aes(x=RunDateString, y=ICC, color=taxlevel, group=taxlevel)) + geom_line() + geom_point() + theme_classic() + ggtitle("ICC by RunDateString") + ylim(c(0.8,1))
 print(p)
-mean_ICC <- aggregate(ICC~taxlevel, res, mean)
-mean_ICC
 ```
 
 <br><br>
@@ -384,6 +387,7 @@ This gives us an idea of how much run-to-run variation we can expect, measured b
 
 ## Coefficient of variation (CV)
 ```{r variation_over_time_cv, eval=TRUE, warning=FALSE, message=FALSE, fig.cap="Heatmap of taxa-specific coefficient of variation (CV) values over time. Greyscale shading on left indicates mean relative abundance of each taxon (also given in parentheses)."}
+overall_res <- {}
 for (taxlevel in c("Family", "Genus", "Species", "SV")) {
 	mapping.sel <- as(sample_data(ps.sel), "data.frame")
 	otu.filt <- as.data.frame(otu_table(ps.sel))
@@ -394,7 +398,7 @@ for (taxlevel in c("Family", "Genus", "Species", "SV")) {
 	agg <- agg[,-1]
 	rownames(agg) <- tax
 	agg <- agg[setdiff(1:nrow(agg), which(rowMeans(agg)<0.001)),] # dont test taxa with <0.1% mean rel. abund.
-	agg <- normalizeByCols(agg)
+	agg <- normalizeByCols(agg, 100)
 	df <- t(do.call(rbind, lapply(levels(mapping.sel$RunDateString), function(lvl) {
 		tmp <- agg[,rownames(subset(mapping.sel, RunDateString==lvl))]
 		apply(tmp, 1, function(x) sd(x)/mean(x))
@@ -404,8 +408,14 @@ for (taxlevel in c("Family", "Genus", "Species", "SV")) {
 	df <- df[names(mra),]
 	mra.coloring <- 1-mra; mra.coloring <- (mra.coloring - min(mra.coloring)) / (max(mra.coloring) - min(mra.coloring))
 	mra.coloring <- rgb(matrix(rep(mra.coloring, each=3), ncol=3, byrow=T))
-	rowlabels <- sprintf("%s (mean rel abund=%.4g)", rownames(df), mra)
-	heatmap.2(df, Colv=F, Rowv=F, dendrogram="none", col = cols, trace="none", margin=c(10, 20), cexCol=1.0, cexRow=0.6, labRow=rowlabels, adjRow=c(0,NA), density.info="none", key.xlab="CV", RowSideColors=mra.coloring, keysize=1, main=sprintf("CV heatmap - %s", taxlevel), scale="none", breaks=seq(from=0,to=5,by=0.1))
+	overall_var <- apply(agg, 1, function(x) sd(x)/mean(x))[names(mra)]
+	overall_res <- rbind(overall_res, data.frame(MRA=mra, var=overall_var, taxlevel=taxlevel))
+	rowlabels <- sprintf("%s (mean rel abund=%.4g, overall CV=%.4g)", strtrim(rownames(df), 20), mra, overall_var)
+	df2 <- cbind(overall_var, df); colnames(df2)[1] <- "interassay_CV"
+	df2.short <- round(df2, digits=3)
+	heatmap.2(df2, Colv=F, Rowv=F, dendrogram="none", col = cols, trace="none", margin=c(10, 20), cexCol=1.0, cexRow=0.6, labRow=rowlabels, adjRow=c(0,NA), density.info="none", key.xlab="CV", RowSideColors=mra.coloring, keysize=1, main=sprintf("CV heatmap - %s", taxlevel), scale="none", breaks=seq(from=0,to=5,by=0.1))
+	heatmap.2(df2, Colv=F, Rowv=F, dendrogram="none", col = cols, trace="none", margin=c(10, 20), cexCol=1.0, cexRow=0.6, labRow=rowlabels, adjRow=c(0,NA), density.info="none", key.xlab="CV", RowSideColors=mra.coloring, keysize=1, cellnote=df2.short, notecex=0.6, notecol="black", main=sprintf("CV heatmap - %s", taxlevel), scale="none", breaks=seq(from=0,to=5,by=0.1))
+	write.table(df, file=sprintf("/Lab_Share/Dilution_Study/phyloseq/taxa_specific_CV_by_Run.%s.txt", taxlevel), quote=F, sep="\t", row.names=T, col.names=T)
 }
 ```
 
