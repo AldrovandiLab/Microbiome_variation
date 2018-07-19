@@ -322,7 +322,7 @@ Unsurprisingly, the 'Stool-BetweenRun' distances are significantly greater than 
 
 ***
 # Technical variation over time
-Another major question in this study is how much technical variation is to be expected over the course of a long-term microbiome study. We'll try to answer this question by examining 118 bacterial mock samples that were sequenced in 16 runs over the course of ~2 years.
+Another major question in this study is how much technical variation is to be expected over the course of a long-term microbiome study. We'll try to answer this question by examining 117 bacterial mock samples that were sequenced in 16 runs over the course of ~2 years.
 ## Taxonomic composition over time
 
 ```r
@@ -350,7 +350,7 @@ p <- ggplot(agg, aes(x=SampleIDfactor, y=value, fill=Family, order=Family)) + ge
 print(p)
 ```
 
-![Taxa barplots for 118 bacterial mock samples sequenced over ~2 years. Samples are ordered chronologically by sequencing run and then by PC1.](Microbiome_variation_files/figure-html/variation_over_time_taxa_barplot-1.png)
+![Taxa barplots for 117 bacterial mock samples sequenced over ~2 years. Samples are ordered chronologically by sequencing run and then by PC1.](Microbiome_variation_files/figure-html/variation_over_time_taxa_barplot-1.png)
 
 
 ```r
@@ -408,7 +408,7 @@ for (distance_metric in distance_metrics) {
 }
 ```
 
-![Pairwise distances for 118 bacterial mock samples over time. Jenson-Shannon divergence (JSD) is shown.](Microbiome_variation_files/figure-html/variation_over_time_pairwise_distance-1.png)
+![Pairwise distances for 117 bacterial mock samples over time. Jenson-Shannon divergence (JSD) is shown.](Microbiome_variation_files/figure-html/variation_over_time_pairwise_distance-1.png)
 
 
 ```r

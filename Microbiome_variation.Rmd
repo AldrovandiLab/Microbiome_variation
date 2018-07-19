@@ -292,9 +292,9 @@ Unsurprisingly, the 'Stool-BetweenRun' distances are significantly greater than 
 
 ***
 # Technical variation over time
-Another major question in this study is how much technical variation is to be expected over the course of a long-term microbiome study. We'll try to answer this question by examining 118 bacterial mock samples that were sequenced in 16 runs over the course of ~2 years.
+Another major question in this study is how much technical variation is to be expected over the course of a long-term microbiome study. We'll try to answer this question by examining 117 bacterial mock samples that were sequenced in 16 runs over the course of ~2 years.
 ## Taxonomic composition over time
-```{r variation_over_time_taxa_barplot, eval=TRUE, warning=FALSE, message=FALSE, fig.cap="Taxa barplots for 118 bacterial mock samples sequenced over ~2 years. Samples are ordered chronologically by sequencing run and then by PC1."}
+```{r variation_over_time_taxa_barplot, eval=TRUE, warning=FALSE, message=FALSE, fig.cap="Taxa barplots for 117 bacterial mock samples sequenced over ~2 years. Samples are ordered chronologically by sequencing run and then by PC1."}
 # BacterialMock taxa barplots over time
 ps.sel <- subset_samples(psnonblank.relative, SampleType=="BacterialMock")
 ordi <- ordinate(ps.sel, method = "PCoA", distance = "jsd")
@@ -331,7 +331,7 @@ for (distance_metric in distance_metrics) {
 Even though the PERMANOVA suggests that there is a very strong `RunDateString` effect, this is likely due to the inclusion of only a set of very closely related samples. The taxa barplots tell us that the composition is generally consistent, although perhaps not as identical as one might like. Let's try to quantify this consistency by looking at pairwise distances and intraclass correlation (ICC). 
 
 ## Pairwise distances and intraclass correlation (ICC)
-```{r variation_over_time_pairwise_distance, eval=TRUE, warning=FALSE, message=FALSE, fig.cap="Pairwise distances for 118 bacterial mock samples over time. Jenson-Shannon divergence (JSD) is shown."}
+```{r variation_over_time_pairwise_distance, eval=TRUE, warning=FALSE, message=FALSE, fig.cap="Pairwise distances for 117 bacterial mock samples over time. Jenson-Shannon divergence (JSD) is shown."}
 mapping.sel <- as(sample_data(psnonblank.relative), "data.frame")
 mapping.sel$SampleID <- rownames(mapping.sel)
 pairs <- ddply(mapping.sel, .(SampleType), function(x) {
