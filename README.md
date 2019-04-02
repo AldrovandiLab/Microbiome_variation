@@ -1,5 +1,5 @@
 # Microbiome_variation
-This repository contains the RMarkdown script and associated data files to reproduce the analyses described in [Bender *et al*., *Quantification of variation and the impact of biomass in targeted 16S rRNA gene microbiome studies*](https://doi).
+This repository contains the RMarkdown script and associated data files to reproduce the analyses described in [Bender *et al*., *Quantification of variation and the impact of biomass in targeted 16S rRNA gene microbiome studies*](https://doi.org/10.1186/s40168-018-0543-z).
 
 ## Running analysis
 A decent number of packages are required - see the top of the R script for details. Installation is up to the user.
